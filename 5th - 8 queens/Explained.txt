@@ -1,0 +1,101 @@
+CODE ----
+
+1. N = 8
+- Defines the size of the chessboard (8×8) and the total number of queens to place.
+
+2. board = [[0]*N for _ in range(N)]
+      -- Creates an 8×8 matrix filled with zeros.
+      -- Each cell represents a position on the chessboard.
+      -- 1 means a queen is placed; 0 means empty.
+
+3. print_board(board) function
+     -- Prints the chessboard in matrix form.
+     -- Uses " ".join() to print all elements in each row clearly.
+
+4. is_safe(board, row, col) function
+- Checks if placing a queen at (row, col) is safe or not.
+- Conditions checked:
+    -- Same column: no other queen above in the same column.
+    -- Left diagonal: checks upper-left diagonal for another queen.
+    -- Right diagonal: checks upper-right diagonal for another queen.
+- If any condition fails, returns False; otherwise, returns True.
+
+5. solve(board, row=1) function
+    - Uses backtracking to place queens row by row.
+    - Starts from the second row, since the first queen is already placed by the user.
+
+6. Base condition – if row == N:
+    - If all 8 queens are successfully placed, print the final board configuration and return True.
+
+7. Loop through all columns (for col in range(N)):
+    - Tries to place a queen in each column of the current row.
+    - Calls is_safe() to check if that position is valid.
+    - If safe, places a queen (board[row][col] = 1).
+
+8. Recursive call – solve(board, row + 1)
+     -- Moves to the next row to place the next queen.
+     -- If the placement leads to a valid solution, it continues.
+     -- Otherwise, it backtracks by resetting that position to 0.
+
+9. Backtracking (board[row][col] = 0)
+    -- Removes the queen if the current path doesn’t lead to a solution.
+    -- This allows the program to try other possible positions.
+
+10. Main Section 
+      -- Takes user input using map(int, input().split()) to get the row and column for the first queen.
+      -- Subtracts 1 from each (because list indices start from 0).
+      -- Places the first queen manually at (r-1, c-1) and calls solve(board).
+
+
+
+
+EXPLAIN ----
+
+This program solves the 8-Queens problem using backtracking.
+You first enter where to place the first queen on the board.
+Then the program tries to place the remaining queens row by row so that
+no two queens attack each other (no same column or diagonal).
+If a position is unsafe, it backtracks and tries another.
+When all 8 queens are safely placed, the final 8×8 matrix is printed.
+
+
+Viva --
+It uses backtracking — first queen is placed by user,
+then the program checks safe spots for others row by row.
+If a position causes conflict, it backtracks.
+Finally, all 8 queens are placed safely on the board.
+
+
+
+OUTPUT -
+After placing the first queen, the program tries to place the next queens row by row.
+For each new row, it checks if a position is safe — meaning no other queen is in the same column or diagonal.
+If a safe spot is found, the queen is placed there.
+If not, the program backtracks (removes the last queen) and tries a different column.
+
+
+The program starts with the first queen at (1,1),
+then places all remaining queens safely using backtracking,
+and prints a final 8×8 matrix where each 1 marks a queen’s safe position.
+
+
+
+
+   C1 C2 C3 C4 C5 C6 C7 C8
+R1  1  0  0  0  0  0  0  0
+R2  0  0  0  0  1  0  0  0
+R3  0  0  0  0  0  0  0  1
+R4  0  0  0  0  0  1  0  0
+R5  0  0  1  0  0  0  0  0
+R6  0  0  0  0  0  0  1  0
+R7  0  1  0  0  0  0  0  0
+R8  0  0  0  1  0  0  0  0
+
+
+Here:
+
+1 → Queen placed.
+
+0 → Empty cell.
+
+No two 1s are in the same row, column, or diagonal.

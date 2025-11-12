@@ -1,0 +1,104 @@
+CODE ---
+
+1. Takes number of items using int(input()).
+- input() reads data as a string.
+- int() converts it to an integer value.
+
+2. Creates two empty lists:
+- weights[] → stores weights of items.
+- values[] → stores corresponding values (profits).
+
+3. Takes weight and value of each item on one line using:
+- map(float, input().split())
+→ input() reads a line,
+→ split() divides it into parts,
+→ float() converts each to a decimal number.
+This allows entering values like 10 60 in one line.
+
+4. Appends each weight and value into the respective lists.
+
+5. Takes knapsack capacity as input using float(input())
+→ allows both integers and decimals for more accurate capacity values.
+
+6. Calculates value-to-weight ratio and sorts items using:
+- zip(weights, values) → pairs each weight with its value (like [(10,60), (20,100)]).
+- sorted(..., key=lambda x: x[1]/x[0], reverse=True)
+→ sorts items in descending order of value/weight ratio.
+(Greedy step — highest ratio first.)
+
+7. Initializes res = 0.0 → used to store total profit collected.
+
+8. For loop iterates through each item:
+- Checks if capacity is already 0 (bag full) → break stops the loop.
+- If item fits completely (weight <= capacity):
+---- Add its full value to total (res += value).
+---- Reduce remaining capacity (capacity -= weight).
+- If item doesn’t fit fully:
+--- Takes fractional part → capacity * (value/weight) adds only that fraction of value.
+--- Sets capacity = 0 (bag full now).
+
+9. print() statements are used to show step-by-step process:
+
+10. Finally prints total maximum value:
+- print(f"\n Maximum value in knapsack = {res:.2f}")
+→ formatted to 2 decimal points using :.2f.
+
+
+
+
+
+
+EXPLAINATION ----
+
+This program solves the Fractional Knapsack Problem using the Greedy Method.
+The aim is to fill a knapsack of limited capacity with items having different weights and values, such that the total value inside the knapsack is maximum.
+Unlike the 0/1 Knapsack, we are allowed to take fractions of items.
+
+1. Input Section
+- The user enters the number of items.
+- For each item, the program takes weight and value together on the same line.
+- Finally, the user enters the capacity of the knapsack.
+
+2. Sorting by Value-to-Weight Ratio -
+items = sorted(zip(weights, values), key=lambda x: x[1]/x[0], reverse=True)
+- Each item’s value/weight ratio is calculated.
+- The items are sorted in descending order of this ratio.
+- This step represents the greedy choice — always pick the most valuable item per unit weight first.
+
+3. Filling the Knapsack
+- The program iterates over the sorted items.
+- If an item can fit completely in the remaining capacity, it is taken fully.
+- If it cannot fit completely, the program takes only the fraction that fits and stops (since the bag is now full).
+- The total value is accumulated in res.
+
+Output Section
+The program displays which items (or fractions) were taken and shows the maximum total value achievable with the given capacity.
+
+Complexities :
+Time Complexity: O(n log n) (due to sorting)
+Space Complexity: O(1)
+
+
+
+VIVA ---
+this program solves the Fractional Knapsack problem using a greedy approach.
+It calculates each item’s value-to-weight ratio, sorts items by this ratio, and then keeps adding the highest-ratio items until the bag is full.
+If an item doesn’t fit completely, only a fraction is taken.
+This gives the maximum total value possible.
+The time complexity is O(n log n).
+
+
+
+
+OUTPUT ---
+How it works:
+
+1. Calculate value/weight ratio for each item:
+- Item 1 → 60/10 = 6
+- Item 2 → 100/20 = 5
+2. Sort items by ratio (highest first): Item 1 → Item 2
+3. Start filling the knapsack:
+- Take Item 1 fully (weight 10 fits perfectly).
+Remaining capacity = 15 - 10 = 5
+- Take 5 weight units of Item 2 (since only 5 capacity is left).
+Fractional value = 5 × (100/20) = 25
